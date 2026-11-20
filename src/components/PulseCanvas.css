@@ -1,0 +1,72 @@
+.pulse-stage {
+  --head-x: 50%;
+  --head-y: 30%;
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.pulse-canvas-host,
+.pulse-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.pulse-canvas {
+  display: block;
+  outline: none;
+  touch-action: none;
+}
+
+.pulse-overlay {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.confidence-badge {
+  position: absolute;
+  left: var(--head-x);
+  top: var(--head-y);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 12px 6px 10px;
+  border-radius: 999px;
+  background: rgba(30, 27, 58, 0.82);
+  border: 1px solid rgba(201, 195, 245, 0.35);
+  color: #e4e0ff;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+  backdrop-filter: blur(8px);
+  opacity: 0;
+  transform: translate(-50%, -100%) translateY(6px) scale(0.96);
+  transition:
+    opacity 220ms ease,
+    transform 320ms cubic-bezier(0.2, 0.9, 0.3, 1.2);
+}
+
+.confidence-badge.is-visible {
+  opacity: 1;
+  transform: translate(-50%, -100%) translateY(-6px) scale(1);
+}
+
+.confidence-badge__dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #f5c36b;
+  box-shadow: 0 0 8px #f5c36b;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .confidence-badge {
+    transition: opacity 150ms linear;
+    transform: translate(-50%, -100%) translateY(-6px);
+  }
+}

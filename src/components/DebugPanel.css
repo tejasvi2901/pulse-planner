@@ -1,0 +1,334 @@
+/* A drawer over the app, closed by default (open with the Debug button or ?debug). */
+.debug {
+  --accent: #6fe3ff;
+  position: fixed;
+  top: 0;
+  right: 0;
+  z-index: 30;
+  display: flex;
+  flex-direction: column;
+  width: 340px;
+  height: 100%;
+  overflow-y: auto;
+  background: var(--panel);
+  border-left: 1px solid var(--border-strong);
+  box-shadow: -24px 0 60px rgba(0, 0, 0, 0.45);
+  color: var(--text);
+  font-size: 13px;
+}
+
+.debug[hidden] {
+  display: none;
+}
+
+.debug__header {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 18px;
+  background: var(--panel);
+  border-bottom: 1px solid var(--border);
+}
+
+.debug__title {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.debug__link {
+  padding: 2px 6px;
+  border: 0;
+  border-radius: 6px;
+  background: none;
+  color: var(--muted);
+  font: inherit;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.debug__link:hover {
+  color: var(--text);
+  background: var(--hover);
+}
+
+.debug__section {
+  padding: 16px 18px;
+  border-bottom: 1px solid var(--border);
+}
+
+.debug__heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 0 0 10px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.debug__kbd-hint {
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  text-transform: none;
+  opacity: 0.8;
+}
+
+/* Current state */
+
+.state-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 7px 14px 7px 12px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--accent) 14%, transparent);
+  border: 1px solid color-mix(in srgb, var(--accent) 40%, transparent);
+  font-size: 15px;
+  font-weight: 650;
+  transition:
+    background-color 400ms ease,
+    border-color 400ms ease;
+}
+
+.state-pill__dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 10px var(--accent);
+  transition: background-color 400ms ease;
+}
+
+.debug__intent {
+  margin: 10px 0 12px;
+  color: var(--muted);
+  line-height: 1.45;
+}
+
+.debug__context {
+  display: grid;
+  gap: 4px;
+  margin: 0;
+}
+
+.debug__context div {
+  display: grid;
+  grid-template-columns: 76px 1fr;
+  gap: 8px;
+}
+
+.debug__context dt {
+  color: var(--muted);
+}
+
+.debug__context dd {
+  margin: 0;
+  font-family: var(--mono);
+  font-size: 12px;
+  overflow-wrap: anywhere;
+}
+
+/* Buttons */
+
+.event-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6px;
+}
+
+.event-btn,
+.wide-btn,
+.state-chip,
+.debug-reopen {
+  border: 1px solid var(--border-strong);
+  border-radius: 8px;
+  background: var(--button);
+  color: var(--text);
+  font: inherit;
+  cursor: pointer;
+  transition:
+    background-color 120ms ease,
+    border-color 120ms ease,
+    opacity 120ms ease,
+    transform 80ms ease;
+}
+
+.event-btn {
+  padding: 8px 8px;
+  font-family: var(--mono);
+  font-size: 11.5px;
+  letter-spacing: 0.01em;
+  text-align: left;
+}
+
+.event-btn--extra {
+  color: var(--muted);
+  border-style: dashed;
+}
+
+.event-btn:hover:not(:disabled),
+.wide-btn:hover:not(:disabled),
+.state-chip:hover,
+.debug-reopen:hover {
+  background: var(--hover);
+  border-color: color-mix(in srgb, var(--accent) 45%, var(--border-strong));
+}
+
+.event-btn:active:not(:disabled),
+.wide-btn:active:not(:disabled),
+.state-chip:active {
+  transform: translateY(1px);
+}
+
+.event-btn:disabled,
+.wide-btn:disabled {
+  opacity: 0.32;
+  cursor: not-allowed;
+}
+
+.wide-btn {
+  width: 100%;
+  margin-top: 8px;
+  padding: 9px 12px;
+  font-weight: 600;
+}
+
+.scenario-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6px;
+}
+
+.scenario-row .wide-btn {
+  margin-top: 0;
+}
+
+.wide-btn.is-running {
+  background: color-mix(in srgb, var(--accent) 18%, var(--button));
+  border-color: color-mix(in srgb, var(--accent) 50%, transparent);
+}
+
+.state-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6px;
+}
+
+.state-chip {
+  --chip: #fff;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 8px 7px 10px;
+  text-align: left;
+}
+
+.state-chip__dot {
+  flex: none;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--chip);
+}
+
+.state-chip__label {
+  flex: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.state-chip kbd {
+  font-family: var(--mono);
+  font-size: 10.5px;
+  color: var(--muted);
+}
+
+.state-chip.is-active {
+  background: color-mix(in srgb, var(--chip) 16%, var(--button));
+  border-color: color-mix(in srgb, var(--chip) 55%, transparent);
+}
+
+/* Event log */
+
+.debug__log-section {
+  flex: 1;
+  border-bottom: 0;
+}
+
+.event-log {
+  display: grid;
+  gap: 2px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-family: var(--mono);
+  font-size: 11.5px;
+}
+
+.event-log li {
+  display: grid;
+  grid-template-columns: 42px 1fr auto;
+  gap: 8px;
+  padding: 4px 0;
+  align-items: baseline;
+}
+
+.event-log li.is-ignored {
+  opacity: 0.45;
+}
+
+.event-log__empty {
+  display: block !important;
+  color: var(--muted);
+  font-family: var(--sans);
+}
+
+.event-log__time {
+  color: var(--muted);
+}
+
+.event-log__count {
+  margin-left: 6px;
+  color: var(--muted);
+}
+
+.event-log__transition {
+  color: var(--muted);
+  text-align: right;
+}
+
+.debug-reopen {
+  position: fixed;
+  left: 16px;
+  bottom: 16px;
+  z-index: 10;
+  padding: 7px 14px;
+  font-weight: 600;
+  backdrop-filter: blur(10px);
+}
+
+/* Narrow screens: the panel stacks under the stage. */
+@media (max-width: 760px) {
+  .debug {
+    width: 100%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .event-btn,
+  .wide-btn,
+  .state-chip,
+  .state-pill,
+  .state-pill__dot {
+    transition: none;
+  }
+}
